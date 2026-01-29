@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sondaggio Menù Hotel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>Sondaggio Menù</h1>
+      <p>Inserisci il tuo nome e scegli i piatti disponibili per il giorno selezionato.</p>
+    </header>
+
+    <section class="card">
+      <form id="menuForm" novalidate>
+        <div class="grid">
+          <div class="field">
+            <label for="name">Nome *</label>
+            <input id="name" name="name" type="text" autocomplete="name" placeholder="Es. Marco" required />
+            <small class="hint">Obbligatorio</small>
+          </div>
+
+          <div class="field">
+            <label for="date">Giorno *</label>
+            <input id="date" name="date" type="date" required />
+            <small class="hint">Se non scegli, uso oggi</small>
+          </div>
+        </div>
+
+        <hr class="sep" />
+
+        <div class="field">
+          <label>Scelte primo (scegline una) *</label>
+          <div id="primiOptions" class="options"></div>
+
+          <div class="field inline">
+            <label for="altroPrimo" class="muted">Altro (primo)</label>
+            <input id="altroPrimo" name="altroPrimo" type="text" placeholder="Es. Penne all'arrabbiata" />
+            <small class="hint">Se scrivi qui, verrà inviato come “Altro”</small>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Secondi (scegline una) *</label>
+          <div id="secondiOptions" class="options"></div>
+
+          <div class="field inline">
+            <label for="altroSecondo" class="muted">Altro (secondo)</label>
+            <input id="altroSecondo" name="altroSecondo" type="text" placeholder="Es. Petto di pollo alla griglia" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="note">Note</label>
+          <textarea id="note" name="note" rows="3" placeholder="Se hai un vizio scrivilo qui"></textarea>
+        </div>
+
+        <div class="actions">
+          <button id="submitBtn" type="submit">Invia scelta</button>
+          <button id="resetBtn" type="button" class="secondary">Reset</button>
+        </div>
+
+        <p id="status" class="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <footer class="footer">
+      <small>Menu Famiglia — scelta giornaliera piatti (rotazione settimanale).</small>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
