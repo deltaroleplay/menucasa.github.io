@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sondaggio Menù Hotel</title>
+  <title>Sondaggio Menù (30 giorni)</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="container">
     <header class="header">
       <h1>Sondaggio Menù</h1>
-      <p>Inserisci il tuo nome e scegli i piatti disponibili per il giorno selezionato.</p>
+      <p>Seleziona una data: verrà caricato il menù del <b>giorno del mese (1–30)</b>.</p>
     </header>
 
     <section class="card">
@@ -18,47 +18,66 @@
         <div class="grid">
           <div class="field">
             <label for="name">Nome *</label>
-            <input id="name" name="name" type="text" autocomplete="name" placeholder="Es. Marco" required />
-            <small class="hint">Obbligatorio</small>
+            <input id="name" type="text" placeholder="Es. Marco" required />
           </div>
 
           <div class="field">
-            <label for="date">Giorno *</label>
-            <input id="date" name="date" type="date" required />
-            <small class="hint">Se non scegli, uso oggi</small>
+            <label for="date">Data *</label>
+            <input id="date" type="date" required />
           </div>
         </div>
+
+        <div class="info" id="menuInfo"></div>
 
         <hr class="sep" />
 
-        <div class="field">
-          <label>Scelte primo (scegline una) *</label>
-          <div id="primiOptions" class="options"></div>
+        <div class="twoCols">
+          <!-- PRANZO -->
+          <div class="block">
+            <h2>Pranzo</h2>
 
-          <div class="field inline">
-            <label for="altroPrimo" class="muted">Altro (primo)</label>
-            <input id="altroPrimo" name="altroPrimo" type="text" placeholder="Es. Penne all'arrabbiata" />
-            <small class="hint">Se scrivi qui, verrà inviato come “Altro”</small>
+            <div class="field">
+              <label>Primo / alternativa (scegline una) *</label>
+              <div id="pranzoPrimi" class="options"></div>
+              <label class="muted" for="altroPranzoPrimo">Altro (pranzo - primo)</label>
+              <input id="altroPranzoPrimo" type="text" placeholder="Es. Farro con pomodorini" />
+            </div>
+
+            <div class="field">
+              <label>Secondo (scegline uno) *</label>
+              <div id="pranzoSecondi" class="options"></div>
+              <label class="muted" for="altroPranzoSecondo">Altro (pranzo - secondo)</label>
+              <input id="altroPranzoSecondo" type="text" placeholder="Es. Petto di pollo ai ferri" />
+            </div>
           </div>
-        </div>
 
-        <div class="field">
-          <label>Secondi (scegline una) *</label>
-          <div id="secondiOptions" class="options"></div>
+          <!-- CENA -->
+          <div class="block">
+            <h2>Cena</h2>
 
-          <div class="field inline">
-            <label for="altroSecondo" class="muted">Altro (secondo)</label>
-            <input id="altroSecondo" name="altroSecondo" type="text" placeholder="Es. Petto di pollo alla griglia" />
+            <div class="field">
+              <label>Primo / alternativa (scegline una) *</label>
+              <div id="cenaPrimi" class="options"></div>
+              <label class="muted" for="altroCenaPrimo">Altro (cena - primo)</label>
+              <input id="altroCenaPrimo" type="text" placeholder="Es. Vellutata di carote" />
+            </div>
+
+            <div class="field">
+              <label>Secondo (scegline uno) *</label>
+              <div id="cenaSecondi" class="options"></div>
+              <label class="muted" for="altroCenaSecondo">Altro (cena - secondo)</label>
+              <input id="altroCenaSecondo" type="text" placeholder="Es. Mozzarella + pomodorini" />
+            </div>
           </div>
         </div>
 
         <div class="field">
           <label for="note">Note</label>
-          <textarea id="note" name="note" rows="3" placeholder="Se hai un vizio scrivilo qui"></textarea>
+          <textarea id="note" rows="3" placeholder="Se hai un vizio scrivilo qui"></textarea>
         </div>
 
         <div class="actions">
-          <button id="submitBtn" type="submit">Invia scelta</button>
+          <button id="submitBtn" type="submit">Invia a Discord</button>
           <button id="resetBtn" type="button" class="secondary">Reset</button>
         </div>
 
@@ -67,7 +86,7 @@
     </section>
 
     <footer class="footer">
-      <small>Menu Famiglia — scelta giornaliera piatti (rotazione settimanale).</small>
+      <small>Menù 30 giorni — ingredienti da magazzino.</small>
     </footer>
   </main>
 
