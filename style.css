@@ -27,6 +27,11 @@ body{
   border-radius: 18px;
   padding: 18px;
   box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  margin-bottom: 14px;
+}
+
+.secondaryCard{
+  background: rgba(18,26,51,.78);
 }
 
 .grid{
@@ -74,6 +79,7 @@ input:focus, textarea:focus{
 }
 
 .block h2{ margin: 4px 0 6px; }
+.block h3{ margin: 4px 0 6px; }
 
 .options{
   display:grid;
@@ -132,6 +138,7 @@ button:disabled{ opacity:.65; cursor:not-allowed; }
 }
 
 .footer{ margin-top: 14px; color: var(--muted); opacity: .9; }
+.mutedText{ color: var(--muted); opacity: .95; margin-top: 0; }
 
 @media (max-width: 900px){
   .grid{ grid-template-columns: 1fr; }

@@ -85,6 +85,47 @@
       </form>
     </section>
 
+    <!-- BOX SECONDARI (non obbligatori) -->
+    <section class="card secondaryCard">
+      <h2>Extra (facoltativi)</h2>
+      <p class="mutedText">Questi box sono opzionali e servono solo per migliorare il servizio.</p>
+
+      <div class="twoCols">
+        <!-- Suggerimenti sito -->
+        <div class="block">
+          <h3>💡 Suggerimenti per migliorare il sito</h3>
+          <form id="feedbackForm">
+            <div class="field">
+              <label for="feedbackText">Scrivi il tuo suggerimento</label>
+              <textarea id="feedbackText" rows="4" placeholder="Es. Aggiungere un pulsante per..."></textarea>
+            </div>
+            <div class="actions">
+              <button id="sendFeedbackBtn" type="submit">Invia suggerimento</button>
+              <button id="clearFeedbackBtn" type="button" class="secondary">Pulisci</button>
+            </div>
+            <p id="feedbackStatus" class="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <!-- Piatti da aggiungere -->
+        <div class="block">
+          <h3>➕ Piatti da aggiungere</h3>
+          <form id="dishForm">
+            <div class="field">
+              <label for="dishText">Suggerisci piatti (uno o più)</label>
+              <textarea id="dishText" rows="4" placeholder="Es. Penne all’arrabbiata, Insalata di farro con..."></textarea>
+              <small class="mutedText">Puoi scrivere più piatti separati da virgole o andare a capo.</small>
+            </div>
+            <div class="actions">
+              <button id="sendDishBtn" type="submit">Invia piatti</button>
+              <button id="clearDishBtn" type="button" class="secondary">Pulisci</button>
+            </div>
+            <p id="dishStatus" class="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
     <footer class="footer">
       <small>Menù 30 giorni — ingredienti da magazzino.</small>
     </footer>
