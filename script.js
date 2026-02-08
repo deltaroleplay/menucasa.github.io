@@ -1,13 +1,12 @@
-// ====== CONFIG ======
-const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1465746218729603176/J51mUaC1lmsHgd78Hk9cKqYAnWWeFgsvfrUxXgJJUvt1bHZbqx_DHULME8RuYoIzOBG8";
+const DISCORD_WEBHOOK_URL =
+  "https://discord.com/api/webhooks/1465746218729603176/J51mUaC1lmsHgd78Hk9cKqYAnWWeFgsvfrUxXgJJUvt1bHZbqx_DHULME8RuYoIzOBG8";
 
 /**
  * Menù 30 giorni NON ripetuto (giorno 1..30).
  * Ogni giorno: pranzo { primi(3), secondi(2) } + cena { primi(3), secondi(2) }
- * SOLO ingredienti forniti: riso/farro/tagliatelle/minestrone/vellutata/legumi/carni/pesci/verdure/formaggi/affettati/olive/salmone.
+ * SOLO ingredienti forniti.
  */
 const MENU_30 = [
-  // Giorno 1
   {
     pranzo: {
       primi: ["Riso con zucchine e carote", "Farro con pomodorini e olive taggiasche", "Minestrone di verdure miste"],
@@ -18,7 +17,6 @@ const MENU_30 = [
       secondi: ["Orata al forno + fagiolini", "Sofficini ai funghi + insalata"]
     }
   },
-  // Giorno 2
   {
     pranzo: {
       primi: ["Tagliatelle con pancetta e cipolle", "Riso con broccoli", "Lenticchie in minestra"],
@@ -29,7 +27,6 @@ const MENU_30 = [
       secondi: ["Carne fettina alla piastra + insalata", "Croccolone di pesce + carote saltate"]
     }
   },
-  // Giorno 3
   {
     pranzo: {
       primi: ["Farro con melanzane e peperoni", "Tagliatelle con ricotta e spinaci", "Minestrone con fagiolini"],
@@ -40,7 +37,6 @@ const MENU_30 = [
       secondi: ["Hamburger + broccoli", "Petto di pollo + zucchine"]
     }
   },
-  // Giorno 4
   {
     pranzo: {
       primi: ["Riso con funghi misti", "Farro con fagiolini e pomodorini", "Fagioli cannellini in zuppa"],
@@ -48,21 +44,19 @@ const MENU_30 = [
     },
     cena: {
       primi: ["Vellutata di zucchine", "Insalata di farro con olive verdi", "Mozzarella + pomodorini"],
-      secondi: ["Frittata (uova) con verdure miste", "Croccolone di pesce + insalata"]
+      secondi: ["Frittata con verdure miste", "Croccolone di pesce + insalata"]
     }
   },
-  // Giorno 5
   {
     pranzo: {
       primi: ["Tagliatelle al ragù (carne macinata)", "Riso con spinaci e grattugiato", "Minestrone classico"],
-      secondi: ["Pollo intero tipo spiedo + patate", "Pangasio gratinato (grattugiato) + broccoli"]
+      secondi: ["Pollo intero tipo spiedo + patate", "Pangasio gratinato + broccoli"]
     },
     cena: {
       primi: ["Vellutata di funghi misti", "Insalata di riso con cetriolo", "Tagliere affettati (fesa/bresaola/cotto)"],
       secondi: ["Salsiccia + cavolfiore", "Orata + zucchine"]
     }
   },
-  // Giorno 6
   {
     pranzo: {
       primi: ["Farro con carote e cipolle", "Tagliatelle con prosciutto cubetti e zucchine", "Zuppa di borlotti"],
@@ -73,7 +67,6 @@ const MENU_30 = [
       secondi: ["Fusi di pollo + insalata", "Croccolone di pesce + spinaci"]
     }
   },
-  // Giorno 7
   {
     pranzo: {
       primi: ["Riso con melanzane", "Farro con pomodorini e mozzarella", "Minestrone con lenticchie"],
@@ -84,7 +77,6 @@ const MENU_30 = [
       secondi: ["Sofficini funghi + insalata", "Hamburger + verdure miste"]
     }
   },
-  // Giorno 8
   {
     pranzo: {
       primi: ["Tagliatelle con funghi misti", "Riso con peperoni", "Fagioli cannellini in minestra"],
@@ -95,7 +87,6 @@ const MENU_30 = [
       secondi: ["Petto di pollo + insalata", "Croccolone di pesce + fagiolini"]
     }
   },
-  // Giorno 9
   {
     pranzo: {
       primi: ["Farro con broccoli e grattugiato", "Tagliatelle con pancetta e funghi", "Minestrone di verdure miste"],
@@ -106,7 +97,6 @@ const MENU_30 = [
       secondi: ["Fusi di pollo + verdure miste", "Orata + broccoli"]
     }
   },
-  // Giorno 10
   {
     pranzo: {
       primi: ["Riso con salmone e zucchine", "Farro con pomodorini e olive taggiasche", "Zuppa di lenticchie"],
@@ -117,7 +107,6 @@ const MENU_30 = [
       secondi: ["Pangasio + fagiolini", "Sofficini funghi + insalata"]
     }
   },
-  // Giorno 11
   {
     pranzo: {
       primi: ["Tagliatelle con ragù e grattugiato", "Riso con carote e cipolle", "Minestrone con fagiolini"],
@@ -128,7 +117,6 @@ const MENU_30 = [
       secondi: ["Carne fettina + zucchine", "Croccolone di pesce + broccoli"]
     }
   },
-  // Giorno 12
   {
     pranzo: {
       primi: ["Farro con peperoni e cipolle", "Tagliatelle con prosciutto cubetti", "Zuppa di borlotti"],
@@ -139,7 +127,6 @@ const MENU_30 = [
       secondi: ["Salsiccia + spinaci", "Petto di pollo + fagiolini"]
     }
   },
-  // Giorno 13
   {
     pranzo: {
       primi: ["Riso con funghi e grattugiato", "Farro con melanzane e pomodorini", "Minestrone classico"],
@@ -150,7 +137,6 @@ const MENU_30 = [
       secondi: ["Pangasio + broccoli", "Sofficini funghi + insalata"]
     }
   },
-  // Giorno 14
   {
     pranzo: {
       primi: ["Tagliatelle con pancetta e broccoli", "Riso con zucchine", "Cannellini in zuppa"],
@@ -161,7 +147,6 @@ const MENU_30 = [
       secondi: ["Croccolone di pesce + spinaci", "Hamburger + insalata"]
     }
   },
-  // Giorno 15
   {
     pranzo: {
       primi: ["Farro con fagiolini e olive verdi", "Tagliatelle con ricotta e funghi", "Zuppa di lenticchie"],
@@ -172,7 +157,6 @@ const MENU_30 = [
       secondi: ["Salsiccia + cavolfiore", "Orata + fagiolini"]
     }
   },
-  // Giorno 16
   {
     pranzo: {
       primi: ["Riso con peperoni e cipolle", "Farro con pomodorini e mozzarella", "Minestrone con borlotti"],
@@ -183,7 +167,6 @@ const MENU_30 = [
       secondi: ["Pangasio + spinaci", "Sofficini funghi + insalata"]
     }
   },
-  // Giorno 17
   {
     pranzo: {
       primi: ["Tagliatelle al ragù", "Riso con funghi misti", "Minestrone classico"],
@@ -194,7 +177,6 @@ const MENU_30 = [
       secondi: ["Fusi di pollo + insalata", "Croccolone di pesce + fagiolini"]
     }
   },
-  // Giorno 18
   {
     pranzo: {
       primi: ["Farro con peperoni e melanzane", "Riso con spinaci", "Zuppa di cannellini"],
@@ -205,7 +187,6 @@ const MENU_30 = [
       secondi: ["Hamburger + patate", "Orata + broccoli"]
     }
   },
-  // Giorno 19
   {
     pranzo: {
       primi: ["Tagliatelle con prosciutto cubetti e funghi", "Farro con carote e cipolle", "Zuppa di lenticchie"],
@@ -216,7 +197,6 @@ const MENU_30 = [
       secondi: ["Pangasio + spinaci", "Sofficini funghi + insalata"]
     }
   },
-  // Giorno 20
   {
     pranzo: {
       primi: ["Riso con salmone e broccoli", "Farro con pomodorini e olive taggiasche", "Minestrone di verdure miste"],
@@ -227,7 +207,6 @@ const MENU_30 = [
       secondi: ["Orata + fagiolini", "Salsiccia + cavolfiore"]
     }
   },
-  // Giorno 21
   {
     pranzo: {
       primi: ["Tagliatelle con pancetta e zucchine", "Riso con peperoni", "Borlotti in minestra"],
@@ -238,7 +217,6 @@ const MENU_30 = [
       secondi: ["Fusi di pollo + patate", "Croccolone di pesce + spinaci"]
     }
   },
-  // Giorno 22
   {
     pranzo: {
       primi: ["Farro con funghi e grattugiato", "Riso con zucchine e carote", "Minestrone classico"],
@@ -249,7 +227,6 @@ const MENU_30 = [
       secondi: ["Petto di pollo + broccoli", "Sofficini funghi + insalata"]
     }
   },
-  // Giorno 23
   {
     pranzo: {
       primi: ["Tagliatelle al ragù + grattugiato", "Farro con peperoni e cipolle", "Zuppa di lenticchie"],
@@ -260,7 +237,6 @@ const MENU_30 = [
       secondi: ["Orata + zucchine", "Hamburger + insalata"]
     }
   },
-  // Giorno 24
   {
     pranzo: {
       primi: ["Riso con funghi misti", "Farro con fagiolini e pomodorini", "Cannellini in zuppa"],
@@ -271,7 +247,6 @@ const MENU_30 = [
       secondi: ["Croccolone di pesce + verdure miste", "Sofficini funghi + insalata"]
     }
   },
-  // Giorno 25
   {
     pranzo: {
       primi: ["Tagliatelle con prosciutto cubetti e spinaci", "Riso con peperoni e cipolle", "Minestrone con borlotti"],
@@ -282,7 +257,6 @@ const MENU_30 = [
       secondi: ["Pangasio + spinaci", "Salsiccia + zucchine"]
     }
   },
-  // Giorno 26
   {
     pranzo: {
       primi: ["Farro con melanzane e olive verdi", "Riso con zucchine", "Zuppa di lenticchie"],
@@ -293,7 +267,6 @@ const MENU_30 = [
       secondi: ["Fusi di pollo + patate", "Orata + verdure miste"]
     }
   },
-  // Giorno 27
   {
     pranzo: {
       primi: ["Tagliatelle con pancetta e funghi", "Farro con carote e cipolle", "Cannellini in minestra"],
@@ -304,7 +277,6 @@ const MENU_30 = [
       secondi: ["Hamburger + broccoli", "Sofficini funghi + insalata"]
     }
   },
-  // Giorno 28
   {
     pranzo: {
       primi: ["Riso con salmone e pomodorini", "Farro con fagiolini e olive taggiasche", "Minestrone classico"],
@@ -315,7 +287,6 @@ const MENU_30 = [
       secondi: ["Orata + zucchine", "Croccolone di pesce + spinaci"]
     }
   },
-  // Giorno 29
   {
     pranzo: {
       primi: ["Tagliatelle al ragù", "Riso con funghi misti", "Zuppa di borlotti"],
@@ -326,7 +297,6 @@ const MENU_30 = [
       secondi: ["Pangasio + broccoli", "Sofficini funghi + insalata"]
     }
   },
-  // Giorno 30
   {
     pranzo: {
       primi: ["Farro con peperoni e melanzane", "Riso con spinaci e grattugiato", "Minestrone di verdure miste"],
@@ -375,6 +345,10 @@ function renderRadio(container, groupName, items) {
   });
 }
 
+function clearRadios(groupName) {
+  document.querySelectorAll(`input[name="${groupName}"]`).forEach(r => { r.checked = false; });
+}
+
 function getChecked(name) {
   return document.querySelector(`input[name="${name}"]:checked`)?.value || "";
 }
@@ -398,6 +372,27 @@ async function postToDiscord(content) {
   }
 }
 
+// Quando l’utente scrive in "Altro", tolgo la spunta ai radio.
+// Quando sceglie un radio, svuoto il campo "Altro".
+function wireAltroSync(radioGroup, altroInputId) {
+  const altro = document.getElementById(altroInputId);
+
+  // Se scrive in Altro -> deseleziona radio
+  altro.addEventListener("input", () => {
+    if (altro.value.trim().length > 0) {
+      clearRadios(radioGroup);
+    }
+  });
+
+  // Se seleziona un radio -> svuota Altro
+  document.addEventListener("change", (e) => {
+    const t = e.target;
+    if (t && t.matches(`input[type="radio"][name="${radioGroup}"]`)) {
+      altro.value = "";
+    }
+  });
+}
+
 function loadMenu() {
   const date = document.getElementById("date").value;
   const info = document.getElementById("menuInfo");
@@ -405,7 +400,6 @@ function loadMenu() {
   const m = menuForDate(date);
   if (!m) {
     info.textContent = "⚠️ Menù non disponibile per questa data (solo giorni 1–30).";
-    // svuoto opzioni per evitare scelte “vecchie”
     ["pranzoPrimi","pranzoSecondi","cenaPrimi","cenaSecondi"].forEach(id => {
       document.getElementById(id).innerHTML = "";
     });
@@ -422,6 +416,12 @@ function loadMenu() {
   renderRadio(document.getElementById("cenaSecondi"), "cena_secondo", m.data.cena.secondi);
 
   setStatus("Seleziona le scelte e invia.");
+
+  // Riaggancio la sincronizzazione (Altro <-> Radio)
+  wireAltroSync("pranzo_primo", "altroPranzoPrimo");
+  wireAltroSync("pranzo_secondo", "altroPranzoSecondo");
+  wireAltroSync("cena_primo", "altroCenaPrimo");
+  wireAltroSync("cena_secondo", "altroCenaSecondo");
 }
 
 function resetForm() {
@@ -435,7 +435,14 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("date").value = toISODate(new Date());
   loadMenu();
 
-  document.getElementById("date").addEventListener("change", loadMenu);
+  document.getElementById("date").addEventListener("change", () => {
+    // pulisco anche eventuali “Altro” quando cambio data
+    ["altroPranzoPrimo","altroPranzoSecondo","altroCenaPrimo","altroCenaSecondo","note"].forEach(id=>{
+      document.getElementById(id).value = "";
+    });
+    loadMenu();
+  });
+
   document.getElementById("resetBtn").addEventListener("click", resetForm);
 
   document.getElementById("menuForm").addEventListener("submit", async (e) => {
