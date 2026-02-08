@@ -1,4 +1,6 @@
+// ========================
 // WEBHOOKS
+// ========================
 const DISCORD_WEBHOOK_MENU =
   "https://discord.com/api/webhooks/1465746218729603176/J51mUaC1lmsHgd78Hk9cKqYAnWWeFgsvfrUxXgJJUvt1bHZbqx_DHULME8RuYoIzOBG8";
 
@@ -8,71 +10,377 @@ const DISCORD_WEBHOOK_FEEDBACK =
 const DISCORD_WEBHOOK_DISHES =
   "https://discord.com/api/webhooks/1470080326578475195/qfEb7cI-RiVl9meCJnhV1QZ-71Zq45B0rct2zv8s1YyHcAf2aJ2bLpEihPBvxHTjMagS";
 
-// === MENU 30 GIORNI (giorno del mese 1..30) ===
+
+// ========================
+// MENU 30 GIORNI (1..30)
+// (NON RIPETUTO)
+// ========================
 const MENU_30 = [
-  { pranzo:{ primi:["Riso con zucchine e carote","Farro con pomodorini e olive taggiasche","Minestrone di verdure miste"], secondi:["Petto di pollo alla piastra + insalata","Hamburger + patate al forno"] },
-    cena:{ primi:["Vellutata di carote","Insalata di farro con cetriolo e pomodorini","Affettato misto + mozzarella"], secondi:["Orata al forno + fagiolini","Sofficini ai funghi + insalata"] } },
-  { pranzo:{ primi:["Tagliatelle con pancetta e cipolle","Riso con broccoli","Lenticchie in minestra"], secondi:["Fusi di pollo al forno + patate","Pangasio al forno + zucchine"] },
-    cena:{ primi:["Vellutata di broccoli","Insalata di riso con olive verdi e pomodorini","Ricotta + pomodorini"], secondi:["Carne fettina alla piastra + insalata","Croccolone di pesce + carote saltate"] } },
-  { pranzo:{ primi:["Farro con melanzane e peperoni","Tagliatelle con ricotta e spinaci","Minestrone con fagiolini"], secondi:["Salsiccia + peperoni","Pangasio + spinaci"] },
-    cena:{ primi:["Vellutata di cavolfiore","Insalata mista con avocado e cetriolo","Affettato + formaggio a fette"], secondi:["Hamburger + broccoli","Petto di pollo + zucchine"] } },
-  { pranzo:{ primi:["Riso con funghi misti","Farro con fagiolini e pomodorini","Fagioli cannellini in zuppa"], secondi:["Carne macinata (polpettine) + patate","Orata al forno + verdure miste"] },
-    cena:{ primi:["Vellutata di zucchine","Insalata di farro con olive verdi","Mozzarella + pomodorini"], secondi:["Frittata con verdure miste","Croccolone di pesce + insalata"] } },
-  { pranzo:{ primi:["Tagliatelle al ragù (carne macinata)","Riso con spinaci e grattugiato","Minestrone classico"], secondi:["Pollo intero tipo spiedo + patate","Pangasio gratinato + broccoli"] },
-    cena:{ primi:["Vellutata di funghi misti","Insalata di riso con cetriolo","Tagliere affettati (fesa/bresaola/cotto)"], secondi:["Salsiccia + cavolfiore","Orata + zucchine"] } },
-  { pranzo:{ primi:["Farro con carote e cipolle","Tagliatelle con prosciutto cubetti e zucchine","Zuppa di borlotti"], secondi:["Carne fettina + peperoni","Hamburger + fagiolini"] },
-    cena:{ primi:["Vellutata di peperoni","Insalata mista con avocado","Ricotta + olive taggiasche"], secondi:["Fusi di pollo + insalata","Croccolone di pesce + spinaci"] } },
-  { pranzo:{ primi:["Riso con melanzane","Farro con pomodorini e mozzarella","Minestrone con lenticchie"], secondi:["Petto di pollo + broccoli","Pangasio + patate"] },
-    cena:{ primi:["Vellutata di carote e cipolla","Insalata di farro con cetriolo","Affettato + formaggio a fette"], secondi:["Sofficini funghi + insalata","Hamburger + verdure miste"] } },
-  { pranzo:{ primi:["Tagliatelle con funghi misti","Riso con peperoni","Fagioli cannellini in minestra"], secondi:["Salsiccia + zucchine","Orata + patate"] },
-    cena:{ primi:["Vellutata di cavolfiore","Insalata di riso con olive verdi","Mozzarella + pomodorini"], secondi:["Petto di pollo + insalata","Croccolone di pesce + fagiolini"] } },
-  { pranzo:{ primi:["Farro con broccoli e grattugiato","Tagliatelle con pancetta e funghi","Minestrone di verdure miste"], secondi:["Carne macinata (hamburger fatti in casa) + patate","Pangasio + spinaci"] },
-    cena:{ primi:["Vellutata di zucchine","Insalata mista (insalata+carote+cetriolo)","Affettati + ricotta"], secondi:["Fusi di pollo + verdure miste","Orata + broccoli"] } },
-  { pranzo:{ primi:["Riso con salmone e zucchine","Farro con pomodorini e olive taggiasche","Zuppa di lenticchie"], secondi:["Petto di pollo + patate","Salsiccia + peperoni"] },
-    cena:{ primi:["Vellutata di broccoli","Insalata di farro con cetriolo e pomodorini","Mozzarella + pomodorini"], secondi:["Pangasio + fagiolini","Sofficini funghi + insalata"] } },
-  { pranzo:{ primi:["Tagliatelle con ragù e grattugiato","Riso con carote e cipolle","Minestrone con fagiolini"], secondi:["Orata + melanzane","Hamburger + insalata"] },
-    cena:{ primi:["Vellutata di carote","Insalata di riso con olive verdi","Affettato (cotto/salame) + formaggio"], secondi:["Carne fettina + zucchine","Croccolone di pesce + broccoli"] } },
-  { pranzo:{ primi:["Farro con peperoni e cipolle","Tagliatelle con prosciutto cubetti","Zuppa di borlotti"], secondi:["Pollo spiedo + verdure miste","Pangasio + patate"] },
-    cena:{ primi:["Vellutata di cavolfiore","Insalata mista con avocado","Ricotta + pomodorini"], secondi:["Salsiccia + spinaci","Petto di pollo + fagiolini"] } },
-  { pranzo:{ primi:["Riso con funghi e grattugiato","Farro con melanzane e pomodorini","Minestrone classico"], secondi:["Hamburger + patate","Orata + zucchine"] },
-    cena:{ primi:["Vellutata di zucchine","Insalata di farro con olive taggiasche","Affettato misto + mozzarella"], secondi:["Pangasio + broccoli","Sofficini funghi + insalata"] } },
-  { pranzo:{ primi:["Tagliatelle con pancetta e broccoli","Riso con zucchine","Cannellini in zuppa"], secondi:["Carne fettina + peperoni","Fusi di pollo + patate"] },
-    cena:{ primi:["Vellutata di peperoni","Insalata di riso con cetriolo","Formaggio a fette + pomodorini"], secondi:["Croccolone di pesce + spinaci","Hamburger + insalata"] } },
-  { pranzo:{ primi:["Farro con fagiolini e olive verdi","Tagliatelle con ricotta e funghi","Zuppa di lenticchie"], secondi:["Pollo intero tipo spiedo + patate","Pangasio + verdure miste"] },
-    cena:{ primi:["Vellutata di broccoli","Insalata mista (insalata+carote+cetriolo)","Affettato + ricotta"], secondi:["Salsiccia + cavolfiore","Orata + fagiolini"] } },
-  { pranzo:{ primi:["Riso con peperoni e cipolle","Farro con pomodorini e mozzarella","Minestrone con borlotti"], secondi:["Petto di pollo + zucchine","Hamburger + broccoli"] },
-    cena:{ primi:["Vellutata di carote","Insalata di farro con avocado","Mozzarella + olive taggiasche"], secondi:["Pangasio + spinaci","Sofficini funghi + insalata"] } },
-  { pranzo:{ primi:["Tagliatelle al ragù","Riso con funghi misti","Minestrone classico"], secondi:["Carne macinata (polpettine) + patate","Orata + melanzane"] },
-    cena:{ primi:["Vellutata di cavolfiore","Insalata di riso con olive verdi e pomodorini","Affettato misto + formaggio a fette"], secondi:["Fusi di pollo + insalata","Croccolone di pesce + fagiolini"] } },
-  { pranzo:{ primi:["Farro con peperoni e melanzane","Riso con spinaci","Zuppa di cannellini"], secondi:["Salsiccia + peperoni","Pangasio + zucchine"] },
-    cena:{ primi:["Vellutata di zucchine","Insalata mista con cetriolo","Ricotta + pomodorini"], secondi:["Hamburger + patate","Orata + broccoli"] } },
-  { pranzo:{ primi:["Tagliatelle con prosciutto cubetti e funghi","Farro con carote e cipolle","Zuppa di lenticchie"], secondi:["Petto di pollo + fagiolini","Croccolone di pesce + insalata"] },
-    cena:{ primi:["Vellutata di broccoli","Insalata di farro con olive verdi","Affettato + mozzarella"], secondi:["Pangasio + spinaci","Sofficini funghi + insalata"] } },
-  { pranzo:{ primi:["Riso con salmone e broccoli","Farro con pomodorini e olive taggiasche","Minestrone di verdure miste"], secondi:["Pollo spiedo + patate","Hamburger + insalata"] },
-    cena:{ primi:["Vellutata di carote","Insalata di riso con cetriolo e pomodorini","Formaggio a fette + pomodorini"], secondi:["Orata + fagiolini","Salsiccia + cavolfiore"] } },
-  { pranzo:{ primi:["Tagliatelle con pancetta e zucchine","Riso con peperoni","Borlotti in minestra"], secondi:["Carne fettina + insalata","Pangasio + broccoli"] },
-    cena:{ primi:["Vellutata di cavolfiore","Insalata mista con avocado","Affettato misto + ricotta"], secondi:["Fusi di pollo + patate","Croccolone di pesce + spinaci"] } },
-  { pranzo:{ primi:["Farro con funghi e grattugiato","Riso con zucchine e carote","Minestrone classico"], secondi:["Hamburger + patate","Orata + melanzane"] },
-    cena:{ primi:["Vellutata di zucchine","Insalata di farro con pomodorini","Mozzarella + olive verdi"], secondi:["Petto di pollo + broccoli","Sofficini funghi + insalata"] } },
-  { pranzo:{ primi:["Tagliatelle al ragù + grattugiato","Farro con peperoni e cipolle","Zuppa di lenticchie"], secondi:["Salsiccia + peperoni","Pangasio + fagiolini"] },
-    cena:{ primi:["Vellutata di broccoli","Insalata di riso con olive taggiasche","Affettato + formaggio a fette"], secondi:["Orata + zucchine","Hamburger + insalata"] } },
-  { pranzo:{ primi:["Riso con funghi misti","Farro con fagiolini e pomodorini","Cannellini in zuppa"], secondi:["Pollo spiedo + patate","Carne fettina + broccoli"] },
-    cena:{ primi:["Vellutata di carote","Insalata mista (insalata+carote+cetriolo)","Ricotta + pomodorini"], secondi:["Croccolone di pesce + verdure miste","Sofficini funghi + insalata"] } },
-  { pranzo:{ primi:["Tagliatelle con prosciutto cubetti e spinaci","Riso con peperoni e cipolle","Minestrone con borlotti"], secondi:["Hamburger + patate","Orata + fagiolini"] },
-    cena:{ primi:["Vellutata di cavolfiore","Insalata di farro con avocado","Affettato misto + mozzarella"], secondi:["Pangasio + spinaci","Salsiccia + zucchine"] } },
-  { pranzo:{ primi:["Farro con melanzane e olive verdi","Riso con zucchine","Zuppa di lenticchie"], secondi:["Petto di pollo + insalata","Croccolone di pesce + broccoli"] },
-    cena:{ primi:["Vellutata di broccoli","Insalata di riso con pomodorini","Formaggio a fette + pomodorini"], secondi:["Fusi di pollo + patate","Orata + verdure miste"] } },
-  { pranzo:{ primi:["Tagliatelle con pancetta e funghi","Farro con carote e cipolle","Cannellini in minestra"], secondi:["Carne macinata (polpettine) + patate","Pangasio + fagiolini"] },
-    cena:{ primi:["Vellutata di zucchine","Insalata mista con cetriolo","Affettato + ricotta"], secondi:["Hamburger + broccoli","Sofficini funghi + insalata"] } },
-  { pranzo:{ primi:["Riso con salmone e pomodorini","Farro con fagiolini e olive taggiasche","Minestrone classico"], secondi:["Pollo intero tipo spiedo + patate","Salsiccia + cavolfiore"] },
-    cena:{ primi:["Vellutata di carote","Insalata di farro con pomodorini","Mozzarella + pomodorini"], secondi:["Orata + zucchine","Croccolone di pesce + spinaci"] } },
-  { pranzo:{ primi:["Tagliatelle al ragù","Riso con funghi misti","Zuppa di borlotti"], secondi:["Petto di pollo + fagiolini","Hamburger + patate"] },
-    cena:{ primi:["Vellutata di cavolfiore","Insalata di riso con olive verdi","Affettato misto + formaggio a fette"], secondi:["Pangasio + broccoli","Sofficini funghi + insalata"] } },
-  { pranzo:{ primi:["Farro con peperoni e melanzane","Riso con spinaci e grattugiato","Minestrone di verdure miste"], secondi:["Orata + patate","Carne fettina + insalata"] },
-    cena:{ primi:["Vellutata di broccoli","Insalata mista con avocado e cetriolo","Ricotta + pomodorini e olive taggiasche"], secondi:["Fusi di pollo + verdure miste","Croccolone di pesce + fagiolini"] } }
+  // Giorno 1
+  {
+    pranzo: {
+      primi: ["Riso con zucchine e carote", "Farro con pomodorini e olive taggiasche", "Minestrone di verdure miste"],
+      secondi: ["Petto di pollo alla piastra + insalata", "Hamburger + patate al forno"]
+    },
+    cena: {
+      primi: ["Vellutata di carote", "Insalata di farro con cetriolo e pomodorini", "Affettato misto + mozzarella"],
+      secondi: ["Orata al forno + fagiolini", "Sofficini ai funghi + insalata"]
+    }
+  },
+
+  // Giorno 2
+  {
+    pranzo: {
+      primi: ["Tagliatelle con pancetta e cipolle", "Riso con broccoli", "Lenticchie in minestra"],
+      secondi: ["Fusi di pollo al forno + patate", "Pangasio al forno + zucchine"]
+    },
+    cena: {
+      primi: ["Vellutata di broccoli", "Insalata di riso con olive verdi e pomodorini", "Ricotta + pomodorini"],
+      secondi: ["Carne fettina alla piastra + insalata", "Croccolone di pesce + carote saltate"]
+    }
+  },
+
+  // Giorno 3
+  {
+    pranzo: {
+      primi: ["Farro con melanzane e peperoni", "Tagliatelle con ricotta e spinaci", "Minestrone con fagiolini"],
+      secondi: ["Salsiccia + peperoni", "Pangasio + spinaci"]
+    },
+    cena: {
+      primi: ["Vellutata di cavolfiore", "Insalata mista con avocado e cetriolo", "Affettato + formaggio a fette"],
+      secondi: ["Hamburger + broccoli", "Petto di pollo + zucchine"]
+    }
+  },
+
+  // Giorno 4
+  {
+    pranzo: {
+      primi: ["Riso con funghi misti", "Farro con fagiolini e pomodorini", "Fagioli cannellini in zuppa"],
+      secondi: ["Carne macinata (polpettine) + patate", "Orata al forno + verdure miste"]
+    },
+    cena: {
+      primi: ["Vellutata di zucchine", "Insalata di farro con olive verdi", "Mozzarella + pomodorini"],
+      secondi: ["Frittata con verdure miste", "Croccolone di pesce + insalata"]
+    }
+  },
+
+  // Giorno 5
+  {
+    pranzo: {
+      primi: ["Tagliatelle al ragù (carne macinata)", "Riso con spinaci e grattugiato", "Minestrone classico"],
+      secondi: ["Pollo intero tipo spiedo + patate", "Pangasio gratinato + broccoli"]
+    },
+    cena: {
+      primi: ["Vellutata di funghi misti", "Insalata di riso con cetriolo", "Tagliere affettati (fesa/bresaola/cotto)"],
+      secondi: ["Salsiccia + cavolfiore", "Orata + zucchine"]
+    }
+  },
+
+  // Giorno 6
+  {
+    pranzo: {
+      primi: ["Farro con carote e cipolle", "Tagliatelle con prosciutto cubetti e zucchine", "Zuppa di borlotti"],
+      secondi: ["Carne fettina + peperoni", "Hamburger + fagiolini"]
+    },
+    cena: {
+      primi: ["Vellutata di peperoni", "Insalata mista con avocado", "Ricotta + olive taggiasche"],
+      secondi: ["Fusi di pollo + insalata", "Croccolone di pesce + spinaci"]
+    }
+  },
+
+  // Giorno 7
+  {
+    pranzo: {
+      primi: ["Riso con melanzane", "Farro con pomodorini e mozzarella", "Minestrone con lenticchie"],
+      secondi: ["Petto di pollo + broccoli", "Pangasio + patate"]
+    },
+    cena: {
+      primi: ["Vellutata di carote e cipolla", "Insalata di farro con cetriolo", "Affettato + formaggio a fette"],
+      secondi: ["Sofficini funghi + insalata", "Hamburger + verdure miste"]
+    }
+  },
+
+  // Giorno 8
+  {
+    pranzo: {
+      primi: ["Tagliatelle con funghi misti", "Riso con peperoni", "Fagioli cannellini in minestra"],
+      secondi: ["Salsiccia + zucchine", "Orata + patate"]
+    },
+    cena: {
+      primi: ["Vellutata di cavolfiore", "Insalata di riso con olive verdi", "Mozzarella + pomodorini"],
+      secondi: ["Petto di pollo + insalata", "Croccolone di pesce + fagiolini"]
+    }
+  },
+
+  // Giorno 9
+  {
+    pranzo: {
+      primi: ["Farro con broccoli e grattugiato", "Tagliatelle con pancetta e funghi", "Minestrone di verdure miste"],
+      secondi: ["Carne macinata (hamburger fatti in casa) + patate", "Pangasio + spinaci"]
+    },
+    cena: {
+      primi: ["Vellutata di zucchine", "Insalata mista (insalata+carote+cetriolo)", "Affettati + ricotta"],
+      secondi: ["Fusi di pollo + verdure miste", "Orata + broccoli"]
+    }
+  },
+
+  // Giorno 10
+  {
+    pranzo: {
+      primi: ["Riso con salmone e zucchine", "Farro con pomodorini e olive taggiasche", "Zuppa di lenticchie"],
+      secondi: ["Petto di pollo + patate", "Salsiccia + peperoni"]
+    },
+    cena: {
+      primi: ["Vellutata di broccoli", "Insalata di farro con cetriolo e pomodorini", "Mozzarella + pomodorini"],
+      secondi: ["Pangasio + fagiolini", "Sofficini funghi + insalata"]
+    }
+  },
+
+  // Giorno 11
+  {
+    pranzo: {
+      primi: ["Tagliatelle con ragù e grattugiato", "Riso con carote e cipolle", "Minestrone con fagiolini"],
+      secondi: ["Orata + melanzane", "Hamburger + insalata"]
+    },
+    cena: {
+      primi: ["Vellutata di carote", "Insalata di riso con olive verdi", "Affettato (cotto/salame) + formaggio"],
+      secondi: ["Carne fettina + zucchine", "Croccolone di pesce + broccoli"]
+    }
+  },
+
+  // Giorno 12
+  {
+    pranzo: {
+      primi: ["Farro con peperoni e cipolle", "Tagliatelle con prosciutto cubetti", "Zuppa di borlotti"],
+      secondi: ["Pollo spiedo + verdure miste", "Pangasio + patate"]
+    },
+    cena: {
+      primi: ["Vellutata di cavolfiore", "Insalata mista con avocado", "Ricotta + pomodorini"],
+      secondi: ["Salsiccia + spinaci", "Petto di pollo + fagiolini"]
+    }
+  },
+
+  // Giorno 13
+  {
+    pranzo: {
+      primi: ["Riso con funghi e grattugiato", "Farro con melanzane e pomodorini", "Minestrone classico"],
+      secondi: ["Hamburger + patate", "Orata + zucchine"]
+    },
+    cena: {
+      primi: ["Vellutata di zucchine", "Insalata di farro con olive taggiasche", "Affettato misto + mozzarella"],
+      secondi: ["Pangasio + broccoli", "Sofficini funghi + insalata"]
+    }
+  },
+
+  // Giorno 14
+  {
+    pranzo: {
+      primi: ["Tagliatelle con pancetta e broccoli", "Riso con zucchine", "Cannellini in zuppa"],
+      secondi: ["Carne fettina + peperoni", "Fusi di pollo + patate"]
+    },
+    cena: {
+      primi: ["Vellutata di peperoni", "Insalata di riso con cetriolo", "Formaggio a fette + pomodorini"],
+      secondi: ["Croccolone di pesce + spinaci", "Hamburger + insalata"]
+    }
+  },
+
+  // Giorno 15
+  {
+    pranzo: {
+      primi: ["Farro con fagiolini e olive verdi", "Tagliatelle con ricotta e funghi", "Zuppa di lenticchie"],
+      secondi: ["Pollo intero tipo spiedo + patate", "Pangasio + verdure miste"]
+    },
+    cena: {
+      primi: ["Vellutata di broccoli", "Insalata mista (insalata+carote+cetriolo)", "Affettato + ricotta"],
+      secondi: ["Salsiccia + cavolfiore", "Orata + fagiolini"]
+    }
+  },
+
+  // Giorno 16
+  {
+    pranzo: {
+      primi: ["Riso con peperoni e cipolle", "Farro con pomodorini e mozzarella", "Minestrone con borlotti"],
+      secondi: ["Petto di pollo + zucchine", "Hamburger + broccoli"]
+    },
+    cena: {
+      primi: ["Vellutata di carote", "Insalata di farro con avocado", "Mozzarella + olive taggiasche"],
+      secondi: ["Pangasio + spinaci", "Sofficini funghi + insalata"]
+    }
+  },
+
+  // Giorno 17
+  {
+    pranzo: {
+      primi: ["Tagliatelle al ragù", "Riso con funghi misti", "Minestrone classico"],
+      secondi: ["Carne macinata (polpettine) + patate", "Orata + melanzane"]
+    },
+    cena: {
+      primi: ["Vellutata di cavolfiore", "Insalata di riso con olive verdi e pomodorini", "Affettato misto + formaggio a fette"],
+      secondi: ["Fusi di pollo + insalata", "Croccolone di pesce + fagiolini"]
+    }
+  },
+
+  // Giorno 18
+  {
+    pranzo: {
+      primi: ["Farro con peperoni e melanzane", "Riso con spinaci", "Zuppa di cannellini"],
+      secondi: ["Salsiccia + peperoni", "Pangasio + zucchine"]
+    },
+    cena: {
+      primi: ["Vellutata di zucchine", "Insalata mista con cetriolo", "Ricotta + pomodorini"],
+      secondi: ["Hamburger + patate", "Orata + broccoli"]
+    }
+  },
+
+  // Giorno 19
+  {
+    pranzo: {
+      primi: ["Tagliatelle con prosciutto cubetti e funghi", "Farro con carote e cipolle", "Zuppa di lenticchie"],
+      secondi: ["Petto di pollo + fagiolini", "Croccolone di pesce + insalata"]
+    },
+    cena: {
+      primi: ["Vellutata di broccoli", "Insalata di farro con olive verdi", "Affettato + mozzarella"],
+      secondi: ["Pangasio + spinaci", "Sofficini funghi + insalata"]
+    }
+  },
+
+  // Giorno 20
+  {
+    pranzo: {
+      primi: ["Riso con salmone e broccoli", "Farro con pomodorini e olive taggiasche", "Minestrone di verdure miste"],
+      secondi: ["Pollo spiedo + patate", "Hamburger + insalata"]
+    },
+    cena: {
+      primi: ["Vellutata di carote", "Insalata di riso con cetriolo e pomodorini", "Formaggio a fette + pomodorini"],
+      secondi: ["Orata + fagiolini", "Salsiccia + cavolfiore"]
+    }
+  },
+
+  // Giorno 21
+  {
+    pranzo: {
+      primi: ["Tagliatelle con pancetta e zucchine", "Riso con peperoni", "Borlotti in minestra"],
+      secondi: ["Carne fettina + insalata", "Pangasio + broccoli"]
+    },
+    cena: {
+      primi: ["Vellutata di cavolfiore", "Insalata mista con avocado", "Affettato misto + ricotta"],
+      secondi: ["Fusi di pollo + patate", "Croccolone di pesce + spinaci"]
+    }
+  },
+
+  // Giorno 22
+  {
+    pranzo: {
+      primi: ["Farro con funghi e grattugiato", "Riso con zucchine e carote", "Minestrone classico"],
+      secondi: ["Hamburger + patate", "Orata + melanzane"]
+    },
+    cena: {
+      primi: ["Vellutata di zucchine", "Insalata di farro con pomodorini", "Mozzarella + olive verdi"],
+      secondi: ["Petto di pollo + broccoli", "Sofficini funghi + insalata"]
+    }
+  },
+
+  // Giorno 23
+  {
+    pranzo: {
+      primi: ["Tagliatelle al ragù + grattugiato", "Farro con peperoni e cipolle", "Zuppa di lenticchie"],
+      secondi: ["Salsiccia + peperoni", "Pangasio + fagiolini"]
+    },
+    cena: {
+      primi: ["Vellutata di broccoli", "Insalata di riso con olive taggiasche", "Affettato + formaggio a fette"],
+      secondi: ["Orata + zucchine", "Hamburger + insalata"]
+    }
+  },
+
+  // Giorno 24
+  {
+    pranzo: {
+      primi: ["Riso con funghi misti", "Farro con fagiolini e pomodorini", "Cannellini in zuppa"],
+      secondi: ["Pollo spiedo + patate", "Carne fettina + broccoli"]
+    },
+    cena: {
+      primi: ["Vellutata di carote", "Insalata mista (insalata+carote+cetriolo)", "Ricotta + pomodorini"],
+      secondi: ["Croccolone di pesce + verdure miste", "Sofficini funghi + insalata"]
+    }
+  },
+
+  // Giorno 25
+  {
+    pranzo: {
+      primi: ["Tagliatelle con prosciutto cubetti e spinaci", "Riso con peperoni e cipolle", "Minestrone con borlotti"],
+      secondi: ["Hamburger + patate", "Orata + fagiolini"]
+    },
+    cena: {
+      primi: ["Vellutata di cavolfiore", "Insalata di farro con avocado", "Affettato misto + mozzarella"],
+      secondi: ["Pangasio + spinaci", "Salsiccia + zucchine"]
+    }
+  },
+
+  // Giorno 26
+  {
+    pranzo: {
+      primi: ["Farro con melanzane e olive verdi", "Riso con zucchine", "Zuppa di lenticchie"],
+      secondi: ["Petto di pollo + insalata", "Croccolone di pesce + broccoli"]
+    },
+    cena: {
+      primi: ["Vellutata di broccoli", "Insalata di riso con pomodorini", "Formaggio a fette + pomodorini"],
+      secondi: ["Fusi di pollo + patate", "Orata + verdure miste"]
+    }
+  },
+
+  // Giorno 27
+  {
+    pranzo: {
+      primi: ["Tagliatelle con pancetta e funghi", "Farro con carote e cipolle", "Cannellini in minestra"],
+      secondi: ["Carne macinata (polpettine) + patate", "Pangasio + fagiolini"]
+    },
+    cena: {
+      primi: ["Vellutata di zucchine", "Insalata mista con cetriolo", "Affettato + ricotta"],
+      secondi: ["Hamburger + broccoli", "Sofficini funghi + insalata"]
+    }
+  },
+
+  // Giorno 28
+  {
+    pranzo: {
+      primi: ["Riso con salmone e pomodorini", "Farro con fagiolini e olive taggiasche", "Minestrone classico"],
+      secondi: ["Pollo intero tipo spiedo + patate", "Salsiccia + cavolfiore"]
+    },
+    cena: {
+      primi: ["Vellutata di carote", "Insalata di farro con pomodorini", "Mozzarella + pomodorini"],
+      secondi: ["Orata + zucchine", "Croccolone di pesce + spinaci"]
+    }
+  },
+
+  // Giorno 29
+  {
+    pranzo: {
+      primi: ["Tagliatelle al ragù", "Riso con funghi misti", "Zuppa di borlotti"],
+      secondi: ["Petto di pollo + fagiolini", "Hamburger + patate"]
+    },
+    cena: {
+      primi: ["Vellutata di cavolfiore", "Insalata di riso con olive verdi", "Affettato misto + formaggio a fette"],
+      secondi: ["Pangasio + broccoli", "Sofficini funghi + insalata"]
+    }
+  },
+
+  // Giorno 30
+  {
+    pranzo: {
+      primi: ["Farro con peperoni e melanzane", "Riso con spinaci e grattugiato", "Minestrone di verdure miste"],
+      secondi: ["Orata + patate", "Carne fettina + insalata"]
+    },
+    cena: {
+      primi: ["Vellutata di broccoli", "Insalata mista con avocado e cetriolo", "Ricotta + pomodorini e olive taggiasche"],
+      secondi: ["Fusi di pollo + verdure miste", "Croccolone di pesce + fagiolini"]
+    }
+  }
 ];
 
-// === Helpers UI ===
+
+// ========================
+// HELPERS
+// ========================
 function toISODate(d) {
   const yyyy = d.getFullYear();
   const mm = String(d.getMonth() + 1).padStart(2, "0");
@@ -80,8 +388,8 @@ function toISODate(d) {
   return `${yyyy}-${mm}-${dd}`;
 }
 
-function setStatus(id, msg, type = "") {
-  const el = document.getElementById(id);
+function setStatus(elId, msg, type = "") {
+  const el = document.getElementById(elId);
   el.textContent = msg;
   el.className = "status" + (type ? ` ${type}` : "");
 }
@@ -110,16 +418,16 @@ function renderRadio(container, groupName, items) {
 }
 
 function clearRadios(groupName) {
-  document.querySelectorAll(`input[name="${groupName}"]`).forEach(r => { r.checked = false; });
+  document.querySelectorAll(`input[name="${groupName}"]`).forEach(r => (r.checked = false));
 }
 
-function getChecked(name) {
-  return document.querySelector(`input[name="${name}"]:checked`)?.value || "";
+function getChecked(groupName) {
+  return document.querySelector(`input[name="${groupName}"]:checked`)?.value || "";
 }
 
 function menuForDate(dateStr) {
   const d = new Date(dateStr + "T00:00:00");
-  const day = d.getDate(); // 1..31
+  const day = d.getDate();
   if (day < 1 || day > 30) return null;
   return { day, data: MENU_30[day - 1] };
 }
@@ -136,14 +444,19 @@ async function postToDiscord(webhookUrl, content) {
   }
 }
 
-// Sync: Altro <-> Radio
+
+// ========================
+// SYNC "ALTRO" <-> RADIO
+// ========================
 function wireAltroSync(radioGroup, altroInputId) {
   const altro = document.getElementById(altroInputId);
 
+  // Se scrive in Altro -> deseleziona radio
   altro.addEventListener("input", () => {
     if (altro.value.trim().length > 0) clearRadios(radioGroup);
   });
 
+  // Se seleziona un radio -> svuota Altro
   document.addEventListener("change", (e) => {
     const t = e.target;
     if (t && t.matches(`input[type="radio"][name="${radioGroup}"]`)) {
@@ -152,11 +465,15 @@ function wireAltroSync(radioGroup, altroInputId) {
   });
 }
 
+
+// ========================
+// LOAD MENU
+// ========================
 function loadMenu() {
   const date = document.getElementById("date").value;
   const info = document.getElementById("menuInfo");
-  const m = menuForDate(date);
 
+  const m = menuForDate(date);
   if (!m) {
     info.textContent = "⚠️ Menù non disponibile per questa data (solo giorni 1–30).";
     ["pranzoPrimi","pranzoSecondi","cenaPrimi","cenaSecondi"].forEach(id => {
@@ -188,12 +505,16 @@ function resetMenuForm() {
   setStatus("status", "Reset effettuato.");
 }
 
-// === INIT ===
+
+// ========================
+// INIT + HANDLERS
+// ========================
 document.addEventListener("DOMContentLoaded", () => {
-  // Menu
+  // Init data
   document.getElementById("date").value = toISODate(new Date());
   loadMenu();
 
+  // Change date
   document.getElementById("date").addEventListener("change", () => {
     // pulisco “Altro” quando cambio data
     ["altroPranzoPrimo","altroPranzoSecondo","altroCenaPrimo","altroCenaSecondo","note"].forEach(id=>{
@@ -202,23 +523,25 @@ document.addEventListener("DOMContentLoaded", () => {
     loadMenu();
   });
 
+  // Reset
   document.getElementById("resetBtn").addEventListener("click", resetMenuForm);
 
+  // Submit menu scelta
   document.getElementById("menuForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-    const submitBtn = document.getElementById("submitBtn");
-    submitBtn.disabled = true;
+    const btn = document.getElementById("submitBtn");
+    btn.disabled = true;
 
     try {
       const name = document.getElementById("name").value.trim();
       const date = document.getElementById("date").value;
       const note = document.getElementById("note").value.trim();
 
-      if (!name) { setStatus("status","Inserisci il nome (obbligatorio).","error"); submitBtn.disabled=false; return; }
-      if (!date) { setStatus("status","Seleziona una data (obbligatorio).","error"); submitBtn.disabled=false; return; }
+      if (!name) { setStatus("status","Inserisci il nome (obbligatorio).","error"); btn.disabled=false; return; }
+      if (!date) { setStatus("status","Seleziona una data (obbligatorio).","error"); btn.disabled=false; return; }
 
       const m = menuForDate(date);
-      if (!m) { setStatus("status","Menù non disponibile per questa data (solo giorni 1–30).","error"); submitBtn.disabled=false; return; }
+      if (!m) { setStatus("status","Menù non disponibile per questa data (solo giorni 1–30).","error"); btn.disabled=false; return; }
 
       const altroPranzoPrimo = document.getElementById("altroPranzoPrimo").value.trim();
       const altroPranzoSecondo = document.getElementById("altroPranzoSecondo").value.trim();
@@ -232,7 +555,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!pranzoPrimo || !pranzoSecondo || !cenaPrimo || !cenaSecondo) {
         setStatus("status","Completa PRANZO e CENA: scegli un'opzione o scrivi 'Altro' per ciascun campo.","error");
-        submitBtn.disabled=false; return;
+        btn.disabled=false; return;
       }
 
       const content =
@@ -266,33 +589,27 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(err);
       setStatus("status","Errore durante l'invio. Se stai usando file:// prova un server locale.","error");
     } finally {
-      submitBtn.disabled = false;
+      btn.disabled = false;
     }
   });
 
-  // === BOX FEEDBACK SITO ===
-  const feedbackForm = document.getElementById("feedbackForm");
-  const sendFeedbackBtn = document.getElementById("sendFeedbackBtn");
-  const clearFeedbackBtn = document.getElementById("clearFeedbackBtn");
-
-  clearFeedbackBtn.addEventListener("click", () => {
+  // ========================
+  // FEEDBACK SITO
+  // ========================
+  document.getElementById("clearFeedbackBtn").addEventListener("click", () => {
     document.getElementById("feedbackText").value = "";
     setStatus("feedbackStatus", "Pulito.");
   });
 
-  feedbackForm.addEventListener("submit", async (e) => {
+  document.getElementById("feedbackForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-    sendFeedbackBtn.disabled = true;
+    const btn = document.getElementById("sendFeedbackBtn");
+    btn.disabled = true;
 
     try {
       const name = document.getElementById("name").value.trim() || "Anonimo";
       const msg = document.getElementById("feedbackText").value.trim();
-
-      if (!msg) {
-        setStatus("feedbackStatus", "Scrivi un suggerimento prima di inviare.", "error");
-        sendFeedbackBtn.disabled = false;
-        return;
-      }
+      if (!msg) { setStatus("feedbackStatus","Scrivi un suggerimento prima di inviare.","error"); btn.disabled=false; return; }
 
       const content =
 `💡 **Suggerimento sito**
@@ -301,41 +618,35 @@ document.addEventListener("DOMContentLoaded", () => {
 📝 Messaggio:
 ${msg}`;
 
-      setStatus("feedbackStatus", "Invio in corso...");
+      setStatus("feedbackStatus","Invio in corso...");
       await postToDiscord(DISCORD_WEBHOOK_FEEDBACK, content);
-      setStatus("feedbackStatus", "Suggerimento inviato ✅", "ok");
+      setStatus("feedbackStatus","Suggerimento inviato ✅","ok");
       document.getElementById("feedbackText").value = "";
     } catch (err) {
       console.error(err);
-      setStatus("feedbackStatus", "Errore invio suggerimento.", "error");
+      setStatus("feedbackStatus","Errore invio suggerimento.","error");
     } finally {
-      sendFeedbackBtn.disabled = false;
+      btn.disabled = false;
     }
   });
 
-  // === BOX PIATTI DA AGGIUNGERE ===
-  const dishForm = document.getElementById("dishForm");
-  const sendDishBtn = document.getElementById("sendDishBtn");
-  const clearDishBtn = document.getElementById("clearDishBtn");
-
-  clearDishBtn.addEventListener("click", () => {
+  // ========================
+  // PIATTI DA AGGIUNGERE
+  // ========================
+  document.getElementById("clearDishBtn").addEventListener("click", () => {
     document.getElementById("dishText").value = "";
     setStatus("dishStatus", "Pulito.");
   });
 
-  dishForm.addEventListener("submit", async (e) => {
+  document.getElementById("dishForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-    sendDishBtn.disabled = true;
+    const btn = document.getElementById("sendDishBtn");
+    btn.disabled = true;
 
     try {
       const name = document.getElementById("name").value.trim() || "Anonimo";
       const dishes = document.getElementById("dishText").value.trim();
-
-      if (!dishes) {
-        setStatus("dishStatus", "Scrivi almeno un piatto prima di inviare.", "error");
-        sendDishBtn.disabled = false;
-        return;
-      }
+      if (!dishes) { setStatus("dishStatus","Scrivi almeno un piatto prima di inviare.","error"); btn.disabled=false; return; }
 
       const content =
 `➕ **Piatti da aggiungere**
@@ -344,15 +655,15 @@ ${msg}`;
 🍽️ Proposta:
 ${dishes}`;
 
-      setStatus("dishStatus", "Invio in corso...");
+      setStatus("dishStatus","Invio in corso...");
       await postToDiscord(DISCORD_WEBHOOK_DISHES, content);
-      setStatus("dishStatus", "Piatti inviati ✅", "ok");
+      setStatus("dishStatus","Piatti inviati ✅","ok");
       document.getElementById("dishText").value = "";
     } catch (err) {
       console.error(err);
-      setStatus("dishStatus", "Errore invio piatti.", "error");
+      setStatus("dishStatus","Errore invio piatti.","error");
     } finally {
-      sendDishBtn.disabled = false;
+      btn.disabled = false;
     }
   });
 });
