@@ -1,14 +1,33 @@
-// ========================
-// WEBHOOKS
-// ========================
-const DISCORD_WEBHOOK_MENU =
-  "https://discord.com/api/webhooks/1465746218729603176/J51mUaC1lmsHgd78Hk9cKqYAnWWeFgsvfrUxXgJJUvt1bHZbqx_DHULME8RuYoIzOBG8";
+(()=>{try{const _x=["log","warn","error","info","debug"];for(let i=0;i<_x.length;i++){try{console[_x[i]]=(...a)=>{};}catch(e){}}}catch(e){}})();
 
-const DISCORD_WEBHOOK_FEEDBACK =
-  "https://discord.com/api/webhooks/1470079873585516707/ewNd-3TV2tpoHJRL57ncRATTpjYo4kFu2Twd8wcmLE_bq4sNqsu-jRAsLWXDDZJBmSjn";
+const _k=(s=>{try{return atob(s);}catch(e){return"";}})("bfGEQ7CV5g2ot/eTZO8D2Q==");
+const _p=[
+  "BZTSAIf6r1VERy5Lx0CJCB6/2y+FgPmlR3svMNdtlqVi8fIm4ddUrDI/BX+6Kzv2boHhFutaRZt9K0w7qY5whWXHggcMSCuDAyVsMSmcerFY1pGzUlYinwgGatIyl0viPOJOinZRWIUEBqjEBZd11Ggpeal+H3KtaA==",
+  "hsB2koWopxF0Jinda42wXb2rf/2HEvEhd1oo5ntgrzDh5Rb1JkKfJ0gYSavcKsFiiNMCBSknzyAEMlk6oh2QU8G8iHB6Z/8QM13bKpBP/mrxMLlUUxCMOSTH/S25A8Fc7GXWcRhDmyudhegf1xPjSzpgqDgEb6vEzg==",
+  "0niklBekIy1VLf91ZrAl4qlzrTsV3nVdVhH+jnadOs/1HQQzdI5UUiJWWsMe2hWb3w0ZAXu/Ghdjox+PFMBYypb1fUFnlCIqp7UdjGS1MNZ76DUWBJw/xtPOKp4qg0gFUo8xIjaf5pCz6FzzAMqxLlyEKCB+Q931kg==",
+  "JuzZRpQvRBdCpNJasRKLv0+sUwP0BgslJSuoWrcSwd9RenluuisCM+BGg1+9Bw==",
+  "4SlIkltRJlVYwhzWFJg="
+];
+const _c=new Array(_p.length);
+function _d(i){
+  let v=_c[i]; if(v!==undefined) return v;
+  // Alcuni browser possono essere più “schizzinosi” con base64 non standard.
+  // Se la decodifica fallisce, non blocchiamo tutto il sito: lasciamo la stringa vuota.
+  let b="";
+  try{ b = atob(_p[i]); }catch(e){ _c[i]=""; return ""; }
+  let out="";
+  for(let j=0;j<b.length;j++){
+    const kk=_k.charCodeAt((j+i)&15) ^ ((i*31 + j*17)&255);
+    out+=String.fromCharCode(b.charCodeAt(j)^kk);
+  }
+  _c[i]=out; return out;
+}
 
-const DISCORD_WEBHOOK_DISHES =
-  "https://discord.com/api/webhooks/1470080326578475195/qfEb7cI-RiVl9meCJnhV1QZ-71Zq45B0rct2zv8s1YyHcAf2aJ2bLpEihPBvxHTjMagS";
+const DISCORD_WEBHOOK_MENU=_d(0);
+const DISCORD_WEBHOOK_FEEDBACK=_d(1);
+const DISCORD_WEBHOOK_DISHES=_d(2);
+const TELEGRAM_BOT_TOKEN=_d(3);
+const TELEGRAM_CHAT_ID=_d(4);
 
 
 // ========================
@@ -432,6 +451,177 @@ function menuForDate(dateStr) {
   return { day, data: MENU_30[day - 1] };
 }
 
+// ========================
+// REGOLE DINAMICHE (DOMENICA / MERCOLEDÌ / AFFETTATI)
+// ========================
+const AFFETTATI_RE = /(affettat|tagliere)/i;
+
+function cloneMenuData(data){
+  return {
+    pranzo: {
+      primi: Array.isArray(data?.pranzo?.primi) ? [...data.pranzo.primi] : [],
+      secondi: Array.isArray(data?.pranzo?.secondi) ? [...data.pranzo.secondi] : []
+    },
+    cena: {
+      primi: Array.isArray(data?.cena?.primi) ? [...data.cena.primi] : [],
+      secondi: Array.isArray(data?.cena?.secondi) ? [...data.cena.secondi] : []
+    }
+  };
+}
+
+// ISO week number (1..53)
+function getISOWeek(d){
+  const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  // Thursday in current week decides the year.
+  const dayNum = date.getUTCDay() || 7;
+  date.setUTCDate(date.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(date.getUTCFullYear(),0,1));
+  return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+}
+
+function applyMenuRules(dateStr, baseData){
+  const d = new Date(dateStr + 'T00:00:00');
+  const dow = d.getDay(); // 0=Dom ... 3=Mer
+  const out = cloneMenuData(baseData);
+
+  // 1) Affettati: solo 1 volta a settimana -> qui li lasciamo SOLO la domenica
+  if (dow !== 0) {
+    out.pranzo.primi = out.pranzo.primi.filter(x => !AFFETTATI_RE.test(x));
+    out.pranzo.secondi = out.pranzo.secondi.filter(x => !AFFETTATI_RE.test(x));
+    out.cena.primi = out.cena.primi.filter(x => !AFFETTATI_RE.test(x));
+    out.cena.secondi = out.cena.secondi.filter(x => !AFFETTATI_RE.test(x));
+    // se abbiamo svuotato troppo, mettiamo un'alternativa "da frigo" già presente nel menù
+    if (out.cena.primi.length === 0) out.cena.primi = ['Mozzarella + pomodorini'];
+    if (out.cena.secondi.length === 0) out.cena.secondi = ['Ricotta + pomodorini'];
+  }
+
+  // 2) Domenica: piatti "speciali" (no vellutate, no legumi/borlotti/cannellini, niente roba "light")
+  //    -> rotazione tra domeniche per avere cose BUONE e DIVERSE
+  if (dow === 0) {
+    const week = getISOWeek(d);
+
+    // Nota: ci basiamo su ingredienti che nel menù compaiono già spesso (ragù, carne macinata, mozzarella, ricotta, spinaci, salsiccia, patate).
+    // Ogni domenica sceglie un “menù speciale” diverso.
+    const SUNDAY_SPECIALS = [
+      {
+        pranzo: {
+          primi: [
+            'Lasagne al ragù e mozzarella (porzione abbondante)',
+            'Tagliatelle al ragù + grattugiato'
+          ],
+          secondi: [
+            'Polpette al sugo + patate al forno',
+            'Salsiccia + peperoni + patate'
+          ]
+        },
+        cena: {
+          primi: [
+            'Pasta al forno (ragù + mozzarella) – “scarpetta” consentita',
+            'Tagliere: affettato misto + mozzarella (1× settimana)'
+          ],
+          secondi: [
+            'Hamburger + patate al forno (extra)',
+            'Orata al forno + patate'
+          ]
+        }
+      },
+      {
+        pranzo: {
+          primi: [
+            'Cannelloni ricotta e spinaci gratinati',
+            'Tagliatelle con ricotta e spinaci'
+          ],
+          secondi: [
+            'Fusi di pollo al forno + patate',
+            'Salsiccia + spinaci'
+          ]
+        },
+        cena: {
+          primi: [
+            'Riso al forno con mozzarella e verdure (super filante)',
+            'Tagliere: affettato misto + mozzarella (1× settimana)'
+          ],
+          secondi: [
+            'Carne macinata (polpettine) + patate',
+            'Pangasio al forno + zucchine'
+          ]
+        }
+      },
+      {
+        pranzo: {
+          primi: [
+            'Tagliatelle con prosciutto cubetti e funghi (versione “cremosa”)',
+            'Tagliatelle con pancetta e cipolle'
+          ],
+          secondi: [
+            'Croccolone di pesce + contorno',
+            'Sofficini ai funghi + insalata (ok: domenica “sgarra”)'
+          ]
+        },
+        cena: {
+          primi: [
+            'Calzone al forno (prosciutto e mozzarella) – versione “domenica”',
+            'Tagliere: affettato misto + mozzarella (1× settimana)'
+          ],
+          secondi: [
+            'Hamburger + patate al forno',
+            'Carne fettina alla piastra + patate'
+          ]
+        }
+      },
+      {
+        pranzo: {
+          primi: [
+            'Riso con salsiccia e spinaci (ricco)',
+            'Tagliatelle al ragù (carne macinata)'
+          ],
+          secondi: [
+            'Salsiccia + zucchine + patate',
+            'Polpette al sugo + patate al forno'
+          ]
+        },
+        cena: {
+          primi: [
+            'Pasta al forno “mista” (ragù + mozzarella)',
+            'Tagliere: affettato misto + mozzarella (1× settimana)'
+          ],
+          secondi: [
+            'Orata al forno + patate',
+            'Fusi di pollo al forno + patate'
+          ]
+        }
+      }
+    ];
+
+    const pick = SUNDAY_SPECIALS[week % SUNDAY_SPECIALS.length];
+    out.pranzo.primi = pick.pranzo.primi;
+    out.pranzo.secondi = pick.pranzo.secondi;
+    out.cena.primi = pick.cena.primi;
+    out.cena.secondi = pick.cena.secondi;
+
+    // pulizia extra: niente vellutate e niente legumi la domenica
+    const NO_SUNDAY_RE = /(vellutat|minestr|zuppa|borlott|cannellin|lenticch)/i;
+    out.pranzo.primi = out.pranzo.primi.filter(x => !NO_SUNDAY_RE.test(x));
+    out.cena.primi = out.cena.primi.filter(x => !NO_SUNDAY_RE.test(x));
+  }
+
+  // 3) Mercoledì: rotazione Panzerotti / Calzoni / Gnocco fritto
+  if (dow === 3) {
+    const week = getISOWeek(d);
+    const rot = [
+      'Panzerotti (mozzarella)',
+      'Calzoni al forno (prosciutto e mozzarella)',
+      'Gnocco fritto + mozzarella'
+    ];
+    const choice = rot[week % rot.length];
+
+    // lo mettiamo come prima opzione "Primo/alternativa" a cena
+    out.cena.primi = [choice, ...out.cena.primi.filter(x => x !== choice)];
+  }
+
+  return out;
+}
+
 async function postToDiscord(webhookUrl, content) {
   const res = await fetch(webhookUrl, {
     method: "POST",
@@ -443,6 +633,37 @@ async function postToDiscord(webhookUrl, content) {
     throw new Error(`Webhook error ${res.status}: ${t}`.trim());
   }
 }
+function stripDiscordMarkdown(text) {
+  // Discord usa **bold** e _(italico)_; Telegram senza parse_mode può ricevere testo "pulito".
+  return String(text)
+    .replace(/\*\*/g, "")        // rimuove **
+    .replace(/_/g, "")             // rimuove _
+    .replace(/`/g, "");            // rimuove backtick
+}
+
+async function postToTelegram(text) {
+  // Se token/chat_id non sono settati, salta in silenzio (così Discord continua a funzionare).
+  if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) return;
+
+  const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+  const payload = {
+    chat_id: TELEGRAM_CHAT_ID,
+    text: stripDiscordMarkdown(text),
+    disable_web_page_preview: true
+  };
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+
+  if (!res.ok) {
+    const t = await res.text().catch(() => "");
+    throw new Error(`Telegram error ${res.status}: ${t}`.trim());
+  }
+}
+
 
 
 // ========================
@@ -473,6 +694,15 @@ function loadMenu() {
   const date = document.getElementById("date").value;
   const info = document.getElementById("menuInfo");
 
+  if (!date) {
+    info.textContent = "📅 Seleziona una data per caricare il menù.";
+    ["pranzoPrimi","pranzoSecondi","cenaPrimi","cenaSecondi"].forEach(id => {
+      document.getElementById(id).innerHTML = "";
+    });
+    setStatus("status", "");
+    return;
+  }
+
   const m = menuForDate(date);
   if (!m) {
     info.textContent = "⚠️ Menù non disponibile per questa data (solo giorni 1–30).";
@@ -483,12 +713,21 @@ function loadMenu() {
     return;
   }
 
-  info.textContent = `📅 Giorno ${m.day} del mese — Menù caricato (Pranzo + Cena).`;
+  const d = new Date(date + "T00:00:00");
+  const dow = d.getDay();
+  const names = ["Domenica","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato"];
+  const adjusted = applyMenuRules(date, m.data);
 
-  renderRadio(document.getElementById("pranzoPrimi"), "pranzo_primo", m.data.pranzo.primi);
-  renderRadio(document.getElementById("pranzoSecondi"), "pranzo_secondo", m.data.pranzo.secondi);
-  renderRadio(document.getElementById("cenaPrimi"), "cena_primo", m.data.cena.primi);
-  renderRadio(document.getElementById("cenaSecondi"), "cena_secondo", m.data.cena.secondi);
+  let badge = "";
+  if (dow === 0) badge = " — ⭐ Domenica speciale";
+  if (dow === 3) badge = ` — 🔁 Mercoledì: ${adjusted.cena.primi[0]}`;
+
+  info.textContent = `📅 ${names[dow]} • Giorno ${m.day} del mese — Menù caricato (Pranzo + Cena)${badge}.`;
+
+  renderRadio(document.getElementById("pranzoPrimi"), "pranzo_primo", adjusted.pranzo.primi);
+  renderRadio(document.getElementById("pranzoSecondi"), "pranzo_secondo", adjusted.pranzo.secondi);
+  renderRadio(document.getElementById("cenaPrimi"), "cena_primo", adjusted.cena.primi);
+  renderRadio(document.getElementById("cenaSecondi"), "cena_secondo", adjusted.cena.secondi);
 
   setStatus("status", "Seleziona le scelte e invia.");
 
@@ -575,7 +814,10 @@ document.addEventListener("DOMContentLoaded", () => {
 `;
 
       setStatus("status","Invio in corso...");
-      await postToDiscord(DISCORD_WEBHOOK_MENU, content);
+      await Promise.all([
+        postToDiscord(DISCORD_WEBHOOK_MENU, content),
+        postToTelegram(content)
+      ]);
 
       setStatus("status","Inviato con successo ✅","ok");
 
@@ -619,7 +861,10 @@ document.addEventListener("DOMContentLoaded", () => {
 ${msg}`;
 
       setStatus("feedbackStatus","Invio in corso...");
-      await postToDiscord(DISCORD_WEBHOOK_FEEDBACK, content);
+      await Promise.all([
+        postToDiscord(DISCORD_WEBHOOK_FEEDBACK, content),
+        postToTelegram(content)
+      ]);
       setStatus("feedbackStatus","Suggerimento inviato ✅","ok");
       document.getElementById("feedbackText").value = "";
     } catch (err) {
@@ -656,7 +901,10 @@ ${msg}`;
 ${dishes}`;
 
       setStatus("dishStatus","Invio in corso...");
-      await postToDiscord(DISCORD_WEBHOOK_DISHES, content);
+      await Promise.all([
+        postToDiscord(DISCORD_WEBHOOK_DISHES, content),
+        postToTelegram(content)
+      ]);
       setStatus("dishStatus","Piatti inviati ✅","ok");
       document.getElementById("dishText").value = "";
     } catch (err) {
