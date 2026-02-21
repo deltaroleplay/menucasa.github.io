@@ -244,8 +244,8 @@ button:disabled{ opacity:.65; cursor:not-allowed; }
 
 .site-logo {
   display: block;
-  margin: 0 auto 12px auto;
-  height: 140px;
+  margin: 0 auto 18px auto;
+  height: 150px;
   filter: drop-shadow(0 0 12px rgba(212,175,55,0.45));
   transition: transform 0.3s ease;
 }
