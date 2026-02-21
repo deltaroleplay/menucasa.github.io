@@ -243,12 +243,10 @@ button:disabled{ opacity:.65; cursor:not-allowed; }
 }
 
 .site-logo {
-  position: fixed;
-  top: 20px;
-  right: 25px;
-  height: 260px;
-  z-index: 9999;
-  filter: drop-shadow(0 0 10px rgba(212,175,55,0.4));
+  display: block;
+  margin: 0 auto 12px auto;
+  height: 140px;
+  filter: drop-shadow(0 0 12px rgba(212,175,55,0.45));
   transition: transform 0.3s ease;
 }
 
